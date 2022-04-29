@@ -11,7 +11,11 @@
 class StreamReassembler {
   private:
     // Your code here -- add private members as necessary.
-
+    std::deque<char> buffer;
+    std::deque<bool> bitmap;
+    bool _eof;
+    size_t unassemble_base;
+    size_t unassemble_bytes;
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
 
@@ -31,6 +35,7 @@ class StreamReassembler {
     //! \param eof the last byte of `data` will be the last byte in the entire stream
     void push_substring(const std::string &data, const uint64_t index, const bool eof);
 
+    void push_byteStream();
     //! \name Access the reassembled byte stream
     //!@{
     const ByteStream &stream_out() const { return _output; }
